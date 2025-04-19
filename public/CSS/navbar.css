@@ -1,0 +1,38 @@
+
+.navbar {
+    background-color:white;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    padding: 0.5rem 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 3rem;
+    
+  }
+  
+  .navbar a {
+    color: black;
+    margin-left: 1rem;
+    font-size: 0.875rem;
+    text-decoration: none;
+    font-weight: bold;
+  }
+  
+  .navbar a:hover {
+    color: #2563eb;
+  }
+  
+  .brand {
+    font-weight: 600;
+    font-size: 1.125rem;
+    display: flex;
+    gap: 1rem;
+    color: #2563eb;
+    position: relative;
+    top: 3px; /* push down */
+  }
+  .icon-large {
+    font-size: 32px;
+    color: #fe424d;
+  }
+  
