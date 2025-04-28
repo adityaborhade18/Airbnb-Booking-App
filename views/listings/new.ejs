@@ -1,28 +1,112 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WanderLust</title>
-</head>
-<body>
-    <h2>create a new Listing</h2>
-    <form method="POST" action="/listings">
-        <input name="listing[title]" placeholder="Enter title " type="text">
-        <br>  <br>
-        <textarea name="listing[description]" placeholder="Enter description" type="text" ></textarea>
-        <br>  <br>
-        <input type="text" name="listing[image][filename]" value="listingimage" />
-        <br><br>
-        <input type="text" name="listing[image][url]" placeholder="Image URL" />
-        <br><br>
-        <input name="listing[price]" placeholder="Enter price" type="number">
-        <br>  <br>
-        <input name="listing[location]" placeholder="Enter location " type="text">
-        <br>  <br>
-        <input name="listing[country]" placeholder="Enter country " type="text">
-        <br>  <br>
-        <button>Add</button>
+    <link rel="stylesheet" href="/CSS/style.css">
+</head> -->
+
+<% layout("/layouts/boilerplate") %>
+<body class="pt-16  ">
+    <h2 class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-2 font-semibold text-center">Create a New Listing</h2>
+    <form method="POST" action="/listings" class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-6" id="myForm" novalidate >
+      <div class="bg-white shadow-lg rounded-xl p-6">
+    
+        <div class="div-container mb-4">
+          <label for="title" class="block text-sm font-medium text-gray-700 mb-1">Title</label>
+          <input name="listing[title]" placeholder="Enter title" type="text" 
+            class="inputs w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500" required/>
+            <p class="mt-1 text-sm text-red-500 hidden">Title is required.</p>
+        </div>  
+    
+        <div class="div-container mb-4">
+          <label for="description" class="block text-sm font-medium text-gray-700 mb-1">Description</label>
+          <textarea
+            name="listing[description]"
+            id="description"
+            rows="4"
+            placeholder="Enter description"
+            class=" inputs w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+            required
+          ></textarea>
+          <p class="mt-1 text-sm text-red-500 hidden">description is required.</p>
+        </div>
+    
+        <div class="div-container mb-4">
+          <label for="filename" class="block text-sm font-medium text-gray-700 mb-1">Image Filename</label>
+          <input
+            type="text"
+            name="listing[image][filename]"
+            id="filename"
+            placeholder="Enter image filename"
+            value="listingimage"
+            class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+        </div>
+    
+        <div class="div-container mb-4">
+          <label for="url" class="block text-sm font-medium text-gray-700 mb-1">Image URL</label>
+          <input 
+            type="text" 
+            id="url" 
+            name="listing[image][url]" 
+            placeholder="Enter image URL" 
+            class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+          />
+        </div>
+    
+        <!-- Responsive Row for Price, Location, and Country -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div class="div-container mb-4">
+            <label for="price" class="block text-sm font-medium text-gray-700 mb-1">Price</label>
+            <input 
+              type="Number"
+              id="price" 
+              name="listing[price]" 
+              placeholder="Enter price" 
+              class="inputs w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+              required
+            />
+            <p class="mt-1 text-sm text-red-500 hidden">price is required.</p>
+          </div>
+    
+          <div class="div-container mb-4">
+            <label for="location" class="block text-sm font-medium text-gray-700 mb-1">Location</label>
+            <input 
+              type="text" 
+              id="location" 
+              name="listing[location]" 
+              placeholder="Enter location" 
+              class="inputs w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+              required
+            />
+            <p class="mt-1 text-sm text-red-500 hidden">location is required.</p>
+          </div>
+    
+          <div class="div-container mb-4">
+            <label for="country" class="block text-sm font-medium text-gray-700 mb-1">Country</label>
+            <input 
+              type="text" 
+              id="country" 
+              name="listing[country]" 
+              placeholder="Enter country" 
+              class=" inputs w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+              required
+            />
+            <p class="mt-1 text-sm text-red-500 hidden">country is required.</p>
+          </div>
+        </div>
+    
+        <div class="flex justify-center">
+          <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition duration-200">
+            Submit
+          </button>
+        </div>
+      </div>
     </form>
+    
+    
+    
 </body>
-</html>
+<!-- </html> -->

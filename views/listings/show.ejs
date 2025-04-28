@@ -8,20 +8,31 @@
     <title>Wanderlust</title>
 </head> -->
 <body>
-    <h3>ALL DETAILS</h3>
-    <ul>
-        <li><%= listings.title %></li>
-        <li><%= listings.description %></li>
-        <li>&#8377; <%= listings.price.toLocaleString("en-IN") %></li>
-        <li><%= listings.location %></li>
-        <li><%= listings.country %></li>
-    </ul>
-    <br><br>
-    <a href="/listings/<%= listings._id %>/edit">Edit this Listings</a>
-    <br><br>
-     
-    <form method="POST" action="/listings/<%= listings._id %>?_method=DELETE">
-        <button>Delete this Listing</button>
-    </form>
+    
+
+    <div class="card flex  flex-col justify-center px-6">
+       
+        <div class="offset-2 mx-auto pt-24">
+            <img src="<%= listings.image.url %>" alt="destination-image" class="show-img">
+            <div class="font-semibold text-lg"><%= listings.title %></div>
+        </div>
+        
+        <div class="px-3 pt-4 mx-auto">
+            <ul class="list-disc space-y-1 text-gray-700">
+                <li>Description :<%= listings.description %></li>
+                <li>price :&#8377; <%= listings.price %></li>
+                <li>Location :<%= listings.location %></li>
+                <li>Country :<%= listings.country %></li>
+           </ul>
+        </div>
+        
+        <div class="pt-4 flex gap-8 mx-auto">
+            <button type="submit" class="px-6 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition duration-200"><a href="/listings/<%= listings._id %>/edit">Edit </a></button>
+             
+            <form method="POST" action="/listings/<%= listings._id %>?_method=DELETE">
+                <button type="submit" class="px-6 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition duration-200">Delete </button>
+            </form>
+        </div>
+    </div>
 </body>
 <!-- </html> -->
