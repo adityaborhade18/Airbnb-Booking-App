@@ -1,20 +1,32 @@
-<nav class="fixed top-0 left-0 w-full z-50 bg-transparent shadow-md">
+<nav class="fixed top-0 left-0 w-full z-50 bg-white shadow-md">
   <div class="max-w-7xl mx-auto flex justify-between items-center px-6 py-3">
-    
+
     <!-- Logo -->
     <div class="text-xl font-bold text-indigo-600 flex items-center gap-2">
       <i class="fa fa-compass" aria-hidden="true"></i>
       <span>Wanderlust</span>
     </div>
 
-    <!-- Links -->
+    <!-- Links (Desktop) -->
     <div class="hidden md:flex items-center space-x-6 text-gray-700 font-medium">
-      <a href="#" class="hover:text-indigo-600 transition duration-300">Home</a>
+      <a href="/" class="hover:text-indigo-600 transition duration-300">Home</a>
       <a href="/listings" class="hover:text-indigo-600 transition duration-300">Listings</a>
       <a href="/listings/new" class="bg-indigo-500 text-white px-4 py-2 rounded-md hover:bg-indigo-600 transition duration-300">Create</a>
     </div>
 
-    <!-- Mobile Menu Button (optional for future mobile nav) -->
+    <!-- Auth Buttons (Desktop) -->
+    <div class="hidden md:flex items-center space-x-4">
+      <!-- Show these only if user is NOT logged in -->
+      <% if(!currUser){ %>
+            <a href="/login" class="text-gray-700 hover:text-indigo-600 transition duration-300">Login</a>
+            <a href="/signup" class="bg-indigo-500 text-white px-4 py-2 rounded-md hover:bg-indigo-600 transition duration-300">Signup</a>
+      <% }  %>
+      <%  if(currUser){ %>
+            <a href="/logout" class="bg-indigo-500 text-white px-4 py-2 rounded-md hover:bg-indigo-600 transition duration-300">Logout</a>
+      <% }  %>
+    </div>
+
+    <!-- Mobile Menu Button -->
     <div class="md:hidden">
       <button class="text-gray-600 focus:outline-none">
         <i class="fa fa-bars text-lg"></i>
@@ -23,3 +35,4 @@
 
   </div>
 </nav>
+

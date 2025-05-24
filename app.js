@@ -7,8 +7,19 @@ const methodOverride=require("method-override");
 const ejsMate=require("ejs-mate");
 const wrapAsync=require("./utils/wrapAsync.js");
 const ExpressError=require("./utils/ExpressError.js");
-const {listingSchema} =require("./schema.js");
+const {listingSchema , reviewSchema} =require("./schema.js");
+const Review=require("./models/review.js");
 const e = require("express");
+const session = require("express-session");
+const flash= require("connect-flash");
+const passport=require("passport");
+const LocalStrategy=require("passport-local");
+const User=require("./models/user.js");
+
+
+const listings=require("./routes/listing.js");
+const reviews=require("./routes/review.js");
+const user=require("./routes/user.js");
 
 const MONGO_URL="mongodb://127.0.0.1:27017/wanderlust";
 
@@ -45,9 +56,48 @@ app.use(express.static(path.join(__dirname,"/public")));
     res.send("sucessful testing");
 }); */
 
+const sessionOptions={
+    secret: "mysupersecretcode",
+    resave: false,
+    saveUninitialized : true,
+    cookie:{
+        expire: Date.now() + 7*24*60*60*3600,
+        maxAge:  7*24*60*60*3600,
+        httpOnly : true,
+    }
+};
+
+app.use(session(sessionOptions));
+app.use(flash());
+
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new LocalStrategy(User.authenticate()));
+
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
 app.get("/" , (req,res)=>{
     res.send("i am root");
 });
+
+app.use((req,res,next)=>{
+    res.locals.success=req.flash("success");
+    res.locals.error=req.flash("error");
+    res.locals.currUser=req.user;
+    next();
+});
+
+app.get("/demouser" , async(req,res)=>{
+    let fakeUser=new User({
+        email:"student@gmail.com",
+        username:"sigma-student",
+    })
+    let registerUser=await User.register(fakeUser,"helloworld");
+    res.send(registerUser);
+})
+
+/*
 const validateListing=(req,res,next)=>{
     let {error} = listingSchema.validate(req.body);
     if(error){
@@ -58,12 +108,26 @@ const validateListing=(req,res,next)=>{
         next();
     }
 }
-//INDEX ROUTE 
-app.get('/listings',wrapAsync(async(req,res)=>{
-    const allListings= await Listing.find({});
-    res.render("./listings/index.ejs",{allListings});
-}));
 
+const validateReview = (req, res, next) => {
+    const { error } = reviewSchema.validate(req.body);
+    if (error) {
+        // el.message is already a string
+        const errmsg = error.details.map(el => el.message).join(', ');
+        throw new ExpressError(400, errmsg);
+    } else {
+        next();
+    }
+};
+*/ 
+
+//INDEX ROUTE 
+// app.get('/listings',wrapAsync(async(req,res)=>{
+//     const allListings= await Listing.find({});
+//     res.render("./listings/index.ejs",{allListings});
+// }));
+
+/*
 //NEW ROUTE //
 app.get("/listings/new",(req,res)=>{
     res.render("./listings/new.ejs");
@@ -86,7 +150,7 @@ app.post("/listings",validateListing ,wrapAsync(async(req,res,next)=>{
 // SHOW ROUTE 
 app.get("/listings/:id",wrapAsync(async(req,res)=>{
     let {id}=req.params;
-    const listings=await Listing.findById(id);
+    const listings=await Listing.findById(id).populate("reviews");
     res.render("./listings/show.ejs",{listings});
 }));
 
@@ -109,7 +173,34 @@ app.delete("/listings/:id",wrapAsync(async(req,res)=>{
     let {id} =req.params;
     const deleted=await Listing.findByIdAndDelete(id);
     res.redirect("/listings");
+})); */
+
+app.use("/listings", listings);
+app.use("/listings/:id/reviews", reviews);
+app.use("/",user);
+
+/*
+// REVIEWS
+//POST ROUTE
+app.post("/listings/:id/reviews",validateReview, wrapAsync(async(req,res)=>{
+    let listing=await Listing.findById(req.params.id);
+    let newReview=new Review(req.body.review);
+
+    listing.reviews.push(newReview);
+    await newReview.save();
+    await listing.save();
+    
+    res.redirect(`/listings/${listing._id}`);
 }));
+
+// DELETE REVIEW ROUTE 
+app.delete("/listings/:id/reviews/:reviewID",wrapAsync(async(req,res)=>{
+     let {id, reviewID} =req.params;
+     await Listing.findByIdAndUpdate(id , {$pull :{review: reviewID}});
+     await Review.findByIdAndDelete(reviewID);
+     res.redirect(`/listings/${id}`);
+}));
+ */
 
 app.use((req,res,next)=>{
    next(new ExpressError(404," this route dosent exist !"))

@@ -1,0 +1,17 @@
+<% if(success && success.length){ %>
+   <div id="alertBox" class="flex items-center justify-between bg-green-100 border border-blue-300 text-blue-800 px-4 py-2 rounded-lg shadow-md max-w-md mx-auto mt-30">
+  <p><%= success %></p>
+  <button onclick="document.getElementById('alertBox').remove()" class="ml-4 text-blue-500 hover:text-blue-700">
+    ✕
+  </button>
+</div>
+<% } %>
+
+<% if(error && error.length){ %>
+   <div id="alertBox" class="flex items-center justify-between bg-red-100 border border-blue-300 text-blue-800 px-4 py-2 rounded-lg shadow-md max-w-md mx-auto mt-30">
+  <p><%= error %></p>
+  <button onclick="document.getElementById('alertBox').remove()" class="ml-4 text-blue-500 hover:text-blue-700">
+    ✕
+  </button>
+</div>
+<% } %>

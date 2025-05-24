@@ -13,7 +13,10 @@
 <body>
     <%- include("../includes/navbar.ejs") %>
      
-    <div class="container"><%- body %></div>
+    <div class="container mt-3">
+        <%- include("../includes/flash.ejs") %>
+        <%- body %>
+    </div>
 
     <%- include("../includes/footer.ejs") %>
     <script src="/JS/script.js"></script>
