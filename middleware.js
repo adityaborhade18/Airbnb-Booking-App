@@ -23,7 +23,7 @@ module.exports.saveRedirectUrl=(req,res,next)=>{
 module.exports.isOwner=async(req,res,next)=>{
     let {id}=req.params;
     let listing=await Listing.findById(id);
-    if(!listing.owner.equals(res.locals.currUser._id)){
+    if(!listing.owner._id.equals(res.locals.currUser._id)){
           req.flash("error","you dont have permission to update this listing !");
           return res.redirect(`/listings/${id}`);
     }
@@ -44,7 +44,6 @@ module.exports.validateListing=(req,res,next)=>{
 module.exports.validateReview = (req, res, next) => {
     const { error } = reviewSchema.validate(req.body);
     if (error) {
-        // el.message is already a string
         const errmsg = error.details.map(el => el.message).join(', ');
         throw new ExpressError(400, errmsg);
     } else {
