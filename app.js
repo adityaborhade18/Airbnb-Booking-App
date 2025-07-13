@@ -81,9 +81,7 @@ passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
-app.get("/" , (req,res)=>{
-    res.render('listings/index');
-});
+
 
 app.use((req,res,next)=>{
     res.locals.success=req.flash("success");
@@ -91,6 +89,12 @@ app.use((req,res,next)=>{
     res.locals.currUser=req.user;
     next();
 });
+
+app.get("/" , (req,res)=>{
+    res.render('listings/index');
+});
+
+
 
 
 
