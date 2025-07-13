@@ -90,9 +90,9 @@ app.use((req,res,next)=>{
     next();
 });
 
-app.get("/" , (req,res)=>{
-    res.render('listings/index');
-});
+// app.get("/" , (req,res)=>{
+//     res.send('working well');
+// });
 
 
 
