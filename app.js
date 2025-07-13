@@ -82,7 +82,7 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 app.get("/" , (req,res)=>{
-    res.send("i am root");
+    res.render('index.ejs');
 });
 
 app.use((req,res,next)=>{
